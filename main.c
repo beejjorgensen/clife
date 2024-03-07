@@ -24,8 +24,7 @@ void delay(float seconds)
 #elif defined(UNIXLIKE)
     nanosleep(&ts, NULL);
 #else
-    (void)ts;
-    sleep(seconds);
+    #error Floating-point sleep not implemented on this system
 #endif
 }
 
