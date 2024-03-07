@@ -25,11 +25,12 @@ VS Code:
 
 ## Files
 
-_[List files here, even if you only have one.]_
+_[List files here, even if you only have one. Headers are optional.]_
 
-* `main.c`: the main code to launch the game
-* `life.c`: code specific to Conway's Life
-* `display.c`: code to related to display
+* `main.c`: The main code to launch the game
+* `life.c`: Code specific to Conway's Life
+* `display.c`: Code to related to display
+* `sysdetect.h`: Some macros for detecting system capabilities
 
 ## Data
 
