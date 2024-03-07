@@ -44,8 +44,14 @@ void run(void)
     }
 }
 
+void shutdown(void)
+{
+    life_shutdown();
+}
+
 int main(void)
 {
     init();
     run();
+    shutdown();
 }

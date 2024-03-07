@@ -62,9 +62,8 @@ _[This is a tree of functions and their short descriptions]_
     * `display_update()`: Display cells
       * `home_cursor()`
     * `delay()`: Delay between frames
-
-* `life_shutdown()`: Call before destruction (currently unused)
-  * `grid_free()`: Free cell grid memory
+  * `life_shutdown()`: Call before destruction (currently unreachable)
+    * `grid_free()`: Free cell grid memory
 
 ## Notes
 
