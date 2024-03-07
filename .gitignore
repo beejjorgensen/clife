@@ -1,0 +1,5 @@
+clife
+*.o
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
