@@ -3,6 +3,16 @@
 
 #include "life.h"
 
+// Grid is allocated to be a 3D array, as if:
+// 
+// char grid[2][LIFE_ROWS][LIFE_COLS]
+//
+// If the grid element is `1`, the cell is alive. If it's `0`, the cell
+// is dead.
+// 
+// `grid[0]` and `grid[1]` are used for double-buffering the cell data
+// from generation to generation.
+
 static char ***grid;
 static int read_grid = 0; // idx of grid we're reading from
 
@@ -15,15 +25,12 @@ static int get_neighbor_count(int r, int c)
     int e = (c + 1) % LIFE_COLS;
 
     // Count neighbors
+    char **g = grid[read_grid];
+
     return
-        grid[read_grid][n][w] +
-        grid[read_grid][n][c] +
-        grid[read_grid][n][e] +
-        grid[read_grid][r][w] +
-        grid[read_grid][r][e] +
-        grid[read_grid][s][w] +
-        grid[read_grid][s][c] +
-        grid[read_grid][s][e];
+        g[n][w] + g[n][c] + g[n][e] +
+        g[r][w] +    0    + g[r][e] +
+        g[s][w] + g[s][c] + g[s][e];
 }
 
 static void update_cell(int r, int c)
@@ -32,17 +39,20 @@ static void update_cell(int r, int c)
 
     int neighbor_count = get_neighbor_count(r, c);
     int cell_alive = grid[read_grid][r][c];
+    int new_state;
 
     if (cell_alive)
         if (neighbor_count < 2 || neighbor_count > 3)
-            grid[write_grid][r][c] = 0; // death by underpopulation
+            new_state = 0; // death by underpopulation
         else
-            grid[write_grid][r][c] = 1; // stays alive
+            new_state = 1; // stays alive
     else // cell is dead
         if (neighbor_count == 3)
-            grid[write_grid][r][c] = 1; // comes to life
+            new_state = 1; // comes to life
         else
-            grid[write_grid][r][c] = 0; // stays dead
+            new_state = 0; // stays dead
+
+    grid[write_grid][r][c] = new_state;
 }
 
 static void randomize(void)
